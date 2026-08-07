@@ -1,0 +1,35 @@
+# 📌 Decision Tree Classifier Example in Python
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+import matplotlib.pyplot as plt
+
+# Step 1: Load dataset (Iris dataset is classic for ML practice)
+iris = load_iris()
+X = iris.data      # Features
+y = iris.target    # Labels
+
+# Step 2: Split dataset into train & test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Step 3: Create Decision Tree model
+dt_model = DecisionTreeClassifier(
+    criterion="entropy",   # or "gini"
+    max_depth=3,           # limit depth for clarity
+    random_state=42
+)
+
+# Step 4: Train model
+dt_model.fit(X_train, y_train)
+
+# Step 5: Evaluate
+accuracy = dt_model.score(X_test, y_test)
+print("✅ Decision Tree Accuracy:", accuracy)
+
+# Step 6: Visualize the tree
+plt.figure(figsize=(12,8))
+plot_tree(dt_model, filled=True, feature_names=iris.feature_names, class_names=iris.target_names)
+plt.show()
