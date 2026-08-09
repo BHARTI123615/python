@@ -1,0 +1,22 @@
+# Definition for a binary tree node
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def minDepth(root):
+    # Agar root hi None hai, depth 0 hogi
+    if not root:
+        return 0
+    
+    # Agar left child nahi hai, right child ki depth + 1
+    if not root.left:
+        return 1 + minDepth(root.right)
+    
+    # Agar right child nahi hai, left child ki depth + 1
+    if not root.right:
+        return 1 + minDepth(root.left)
+    
+    # Dono child present → minimum depth choose karo
+    return 1 + min(minDepth(root.left), minDepth(root.right))
